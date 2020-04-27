@@ -7,7 +7,47 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/SearchingText"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:layout_marginTop="132dp"
+        android:text="Searching thermometer..."
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <ProgressBar
+        android:id="@+id/progress_loader"
+        style="@android:style/Widget.Material.ProgressBar.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SearchingText"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/PleaseMakeSureTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Please make sure it is turned on"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progress_loader"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/cmTempText"
         android:layout_width="82dp"
         android:layout_height="50dp"
         android:layout_marginStart="176dp"
@@ -15,15 +55,17 @@
         android:layout_marginTop="26dp"
         android:layout_marginEnd="175dp"
         android:layout_marginRight="175dp"
-        android:text="36.7"
+        android:text=""
         android:textSize="36sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/cmText"
+        tools:visibility="gone" />
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/InfectedTempText"
         android:layout_width="82dp"
         android:layout_height="50dp"
         android:layout_marginStart="176dp"
@@ -31,51 +73,59 @@
         android:layout_marginTop="26dp"
         android:layout_marginEnd="175dp"
         android:layout_marginRight="175dp"
-        android:text="36.7"
+        android:text=""
         android:textSize="36sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/infectedText"
+        tools:visibility="gone" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/infectedText"
         android:layout_width="334dp"
         android:layout_height="18dp"
         android:layout_marginTop="32dp"
         android:gravity="center"
         android:text="Measure temprature on infected area:"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        app:layout_constraintTop_toBottomOf="@+id/cmText"
+        tools:visibility="gone" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/cmText"
         android:layout_width="334dp"
         android:layout_height="18dp"
         android:layout_marginTop="32dp"
         android:gravity="center"
         android:text="Measure temprature 3cm from infected area:"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/ForeheadTempText"
+        tools:visibility="gone" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/ForeheadText"
         android:layout_width="334dp"
         android:layout_height="18dp"
         android:layout_marginTop="36dp"
         android:gravity="center"
         android:text="Measure temprature on forehead:"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/ForeheadTempText"
         android:layout_width="82dp"
         android:layout_height="50dp"
         android:layout_marginStart="176dp"
@@ -83,23 +133,13 @@
         android:layout_marginTop="26dp"
         android:layout_marginEnd="175dp"
         android:layout_marginRight="175dp"
-        android:text="36.7"
+        android:text=""
         android:textSize="36sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/ForeheadText"
+        tools:visibility="gone" />
 
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="0dp"
-        android:layout_height="21dp"
-        android:layout_marginTop="48dp"
-        android:gravity="center"
-        android:text="Thermometer disconnected"
-        android:textColor="#A1190F"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
 </androidx.constraintlayout.widget.ConstraintLayout>

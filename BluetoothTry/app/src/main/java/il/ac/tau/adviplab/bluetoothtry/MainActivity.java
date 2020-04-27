@@ -19,6 +19,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.util.UUID;
 
@@ -37,7 +39,9 @@ public class MainActivity extends AppCompatActivity {
     BluetoothAdapter bluetoothAdapter;
     BluetoothManager bluetoothManager;
     BluetoothGatt mBluetoothGatt;
-    boolean isThermometerFound = false;
+
+    DataToSend dataToSend = new DataToSend();
+    //boolean isThermometerFound = false;
 
 
     @Override
@@ -62,9 +66,16 @@ public class MainActivity extends AppCompatActivity {
                 if(device.getAddress().equals(HR_SENSOR_ADDRESS)){
                     Log.i("LeScan","Found thermometer!");
                     myDevice = device;
-//                    Toast toast = Toast.makeText(getApplicationContext(), "Found thermometer", Toast.LENGTH_LONG);
-//                    toast.show();
-                    isThermometerFound = true;
+                    findViewById(R.id.progress_loader).setVisibility(View.GONE);
+                    findViewById(R.id.SearchingText).setVisibility(View.GONE);
+                    findViewById(R.id.PleaseMakeSureTxt).setVisibility(View.GONE);
+
+                    findViewById(R.id.ForeheadText).setVisibility(View.VISIBLE);
+                    findViewById(R.id.ForeheadTempText).setVisibility(View.VISIBLE);
+
+                    Toast toast = Toast.makeText(getApplicationContext(), "Found thermometer", Toast.LENGTH_LONG);
+                    toast.show();
+                    //isThermometerFound = true;
                     startBLEGat();
                 }
             }
@@ -131,7 +142,36 @@ public class MainActivity extends AppCompatActivity {
                     buildHashMap();
                     temperatureValue = sharedPreferences.getString(byte1Str, "too low or too high");
                 }
+                if(dataToSend.forehead_temp.equals("")){
+                    dataToSend.forehead_temp = temperatureValue;
+                    final String finalTemperatureValue = temperatureValue;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            TextView foreheadTempText = findViewById(R.id.ForeheadTempText);
+                            foreheadTempText.setText(finalTemperatureValue);
+                            findViewById(R.id.cmText).setVisibility(View.VISIBLE);
+                            findViewById(R.id.cmTempText).setVisibility(View.VISIBLE);
+                        }
+                    });
 
+                }
+                else if(dataToSend.cm_temp.equals("")){
+                    dataToSend.cm_temp = temperatureValue;
+                    final String finalTemperatureValue = temperatureValue;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            TextView cmTempText = findViewById(R.id.cmTempText);
+                            cmTempText.setText(finalTemperatureValue);
+                            findViewById(R.id.infectedText).setVisibility(View.VISIBLE);
+                            findViewById(R.id.InfectedTempText).setVisibility(View.VISIBLE);
+                        }
+                    });
+                }
+                else if(dataToSend.infection_temp.equals("")){
+                    dataToSend.infection_temp=temperatureValue;
+                }
                 Log.i("onCharacteristicChanged","measured temprature is: " + temperatureValue + " bytes are: " + byte1Str);
 
             }
