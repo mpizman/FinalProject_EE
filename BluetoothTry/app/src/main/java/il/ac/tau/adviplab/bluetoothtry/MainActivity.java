@@ -171,6 +171,14 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else if(dataToSend.infection_temp.equals("")){
                     dataToSend.infection_temp=temperatureValue;
+                    final String finalTemperatureValue = temperatureValue;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            TextView infectedTempText = findViewById(R.id.InfectedTempText);
+                            infectedTempText.setText(finalTemperatureValue);
+                        }
+                    });
                 }
                 Log.i("onCharacteristicChanged","measured temprature is: " + temperatureValue + " bytes are: " + byte1Str);
 
