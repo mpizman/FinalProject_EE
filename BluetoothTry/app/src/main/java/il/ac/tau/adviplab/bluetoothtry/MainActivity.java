@@ -66,13 +66,6 @@ public class MainActivity extends AppCompatActivity {
                 if(device.getAddress().equals(HR_SENSOR_ADDRESS)){
                     Log.i("LeScan","Found thermometer!");
                     myDevice = device;
-                    findViewById(R.id.progress_loader).setVisibility(View.GONE);
-                    findViewById(R.id.SearchingText).setVisibility(View.GONE);
-                    findViewById(R.id.PleaseMakeSureTxt).setVisibility(View.GONE);
-
-                    findViewById(R.id.ForeheadText).setVisibility(View.VISIBLE);
-                    findViewById(R.id.ForeheadTempText).setVisibility(View.VISIBLE);
-
                     Toast toast = Toast.makeText(getApplicationContext(), "Found thermometer", Toast.LENGTH_LONG);
                     toast.show();
                     //isThermometerFound = true;
@@ -97,6 +90,16 @@ public class MainActivity extends AppCompatActivity {
             public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState){
                 Log.i("onConnectionStateChange","state changed to:" + newState);
                 if (newState == BluetoothProfile.STATE_CONNECTED){
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            findViewById(R.id.progress_loader).setVisibility(View.GONE);
+                            findViewById(R.id.SearchingText).setVisibility(View.GONE);
+                            findViewById(R.id.PleaseMakeSureTxt).setVisibility(View.GONE);
+
+                            findViewById(R.id.ForeheadText).setVisibility(View.VISIBLE);
+                            findViewById(R.id.ForeheadTempText).setVisibility(View.VISIBLE);
+                        }});
                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                         @Override
                         public void run() {
@@ -105,6 +108,10 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
                     Log.i("onConnectionStateChange", "gat discover services");
+                }
+                else{
+                    mBluetoothGatt.close(); //check if needed
+                    Log.i("onConnectionStateChange","Closed GATT");
                 }
             }
 
@@ -186,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
 
         };
 
-        mBluetoothGatt = myDevice.connectGatt(this, true, gattCallback); //true?
+        mBluetoothGatt = myDevice.connectGatt(this, false, gattCallback); //true?
         Log.i("started gatt","gatt init");
     }
 
